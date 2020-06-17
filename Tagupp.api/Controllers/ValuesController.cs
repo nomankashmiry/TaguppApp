@@ -2,15 +2,18 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Tagupp.api.Controllers
-{
+
+{   [Authorize] 
     [Route("api/[controller]")]
     [ApiController]
     public class ValuesController : ControllerBase
     {
         // GET api/values
+        [AllowAnonymous]
         [HttpGet]
         public ActionResult<IEnumerable<string>> Get()
         {
@@ -23,6 +26,9 @@ namespace Tagupp.api.Controllers
         {
             return "value";
         }
+
+      
+
 
         // POST api/values
         [HttpPost]
