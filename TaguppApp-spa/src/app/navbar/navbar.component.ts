@@ -20,7 +20,7 @@ export class NavbarComponent implements OnInit {
     this.authService.login(this.model).subscribe(next => {
       console.log('Logged in success');
     }, error => {
-      console.log('Error');
+      console.log(error);
     });
   }
 
