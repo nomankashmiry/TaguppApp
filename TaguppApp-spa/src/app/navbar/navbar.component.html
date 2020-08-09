@@ -1,49 +1,47 @@
-<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-primary">
+  <div class="container">
+    <a class="navbar-brand" [routerLink]="['/home']" routerLinkActive="router-link-active" >TagUpp</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  
+    <div class="collapse navbar-collapse mr-auto">
+      <ul *ngIf="loggedIn()" class="navbar-nav mr-auto">
+        <li class="nav-item " routerLinkActive="active">
+          <a class="nav-link" [routerLink]="['/wall']" routerLinkActive="router-link-active" >Wall<span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item " routerLinkActive="active">
+          <a class="nav-link" [routerLink]="['/profile']" routerLinkActive="router-link-active" >{{authService.decodedToken.unique_name | titlecase}}'s Profile <span class="sr-only">(current)</span></a>
+        </li>
+      
+      </ul>
+  
+      <div *ngIf="loggedIn()" class="dropdown" dropdown>
   
   
-  <a class="navbar-brand" href="#">TagUpp</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-
-  <div class="collapse navbar-collapse mr-auto">
-    <ul *ngIf="loggedIn()" class="navbar-nav mr-auto">
-      <li class="nav-item active">
-        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-      </li>
-      <li  class="nav-item">
-        <a class="nav-link" href="#">Friends</a>
-      </li>
-      <li  class="nav-item">
-        <a class="nav-link" href="#">Messages</a>
-      </li>
+          <a class="dropdown-toggle text-light" dropdownToggle>
+          Hi {{authService.decodedToken.unique_name | titlecase}}
+          </a>
+          <div class="dropdown-menu mt-3" *dropdownMenu >
+  
+            <a class="dropdown-item" [routerLink]="['/edit']" routerLinkActive="router-link-active" >
+              <i class="fa fa-user"></i> Edit Profile</a>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" (click)="logout()" href="#">
+              <i class="fa fa-sign-out"></i>Logout</a>
+  
+          </div>
    
-    
-    </ul>
-
-    <div *ngIf="loggedIn()" class="dropdown" dropdown>
-
-
-        <a class="dropdown-toggle text-light" dropdownToggle>
-        Welcome {{authService.decodedToken.unique_name}}
-        </a>
-        <div class="dropdown-menu mt-3" *dropdownMenu >
-
-          <a class="dropdown-item" >
-            <i class="fa fa-user"></i> Edit Profile</a>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item" (click)="logout()" href="#">
-            <i class="fa fa-sign-out"></i>Logout</a>
-
-        </div>
- 
+      </div>
+      <form *ngIf="!loggedIn()"  #loginFrom="ngForm" class="ml-auto form-inline my-2 my-lg-0" (ngSubmit)="login()">
+        <input class="form-control mr-sm-2" type="text" 
+        name="Username" [(ngModel)]="model.Username" placeholder="Username">
+        <input class="form-control mr-sm-2" type="password"
+         name="password" [(ngModel)]="model.password" placeholder="Password">
+        <button class="btn btn-success my-2 my-sm-0" type="submit">Login</button>
+      </form>
     </div>
-    <form *ngIf="!loggedIn()"  #loginFrom="ngForm" class="ml-auto form-inline my-2 my-lg-0" (ngSubmit)="login()">
-      <input class="form-control mr-sm-2" type="text" 
-      name="Username" [(ngModel)]="model.Username" placeholder="Username">
-      <input class="form-control mr-sm-2" type="password"
-       name="password" [(ngModel)]="model.password" placeholder="Password">
-      <button class="btn btn-success my-2 my-sm-0" type="submit">Login</button>
-    </form>
   </div>
+  
+ 
 </nav>
